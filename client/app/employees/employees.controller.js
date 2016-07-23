@@ -3,8 +3,7 @@
 (function(){
 
 class EmployeesComponent {
-  constructor() {
-    this.message = 'Hello';
+  constructor() { 
   }
 }
 
