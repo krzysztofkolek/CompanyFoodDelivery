@@ -8,6 +8,10 @@ class NavbarController {
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
+  };
+  
+  isLoggedInButNotAdmin(Auth) {
+      return !Auth.isAdmin && Auth.isLoggedIn;
   }
 
 }
