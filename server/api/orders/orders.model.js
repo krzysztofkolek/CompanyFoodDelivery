@@ -3,9 +3,10 @@
 import mongoose from 'mongoose';
 
 var OrdersSchema = new mongoose.Schema({
-  name: String,
-  info: String,
-  active: Boolean
+    _id: Number,
+    name: String,
+    emplyeesInOrder: [{type: mongoose.Schema.Types.ObjectId, ref: 'Employees' }],
+    productsInOrder: [{type: mongoose.Schema.Types.ObjectId, ref: 'Products' }]    
 });
 
 export default mongoose.model('Orders', OrdersSchema);
