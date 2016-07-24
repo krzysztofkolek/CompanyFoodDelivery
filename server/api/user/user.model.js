@@ -23,8 +23,7 @@ var UserSchema = new Schema({
     },
     provider: String,
     salt: String,
-    active: Boolean,
-    projectAssigned: [{ type: Number, ref: 'Projects' }]
+    active: Boolean
 });
 
 /**
