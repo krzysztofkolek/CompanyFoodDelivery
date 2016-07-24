@@ -3,9 +3,12 @@
 import mongoose from 'mongoose';
 
 var EmployeesSchema = new mongoose.Schema({
-  name: String,
-  info: String,
-  active: Boolean
+    _id: Number,
+    name: String,
+    surname: String,
+    hireDate: Date,
+    active: Boolean,
+    projectAssigned: [{ type: Number, ref: 'Projects' }]
 });
 
 export default mongoose.model('Employees', EmployeesSchema);

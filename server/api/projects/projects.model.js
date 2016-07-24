@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 
 var ProjectsSchema = new mongoose.Schema({
+  _id: Number, 
   name: String,
   info: String,
   active: Boolean
