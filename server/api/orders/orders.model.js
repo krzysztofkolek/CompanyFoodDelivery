@@ -3,9 +3,8 @@
 import mongoose from 'mongoose';
 
 var OrdersSchema = new mongoose.Schema({
-    _id: Number,
     name: String,
-    emplyeesInOrder: [{type: mongoose.Schema.Types.ObjectId, ref: 'Employees' }],
+    emplyeesInOrder: [{type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     productsInOrder: [{type: mongoose.Schema.Types.ObjectId, ref: 'Products' }]    
 });
 

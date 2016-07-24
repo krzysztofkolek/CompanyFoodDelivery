@@ -7,6 +7,11 @@
 import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
 
+import Employee from '../api/employees/employees.model';
+import Retailers from '../api/retailers/retailers.model';
+import Projects from '../api/projects/projects.model';
+import Orders from '../api/orders/orders.model';
+
 Thing.find({}).remove()
   .then(() => {
     Thing.create({
