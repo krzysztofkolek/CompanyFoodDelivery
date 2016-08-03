@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import Orders from './orders.model';
+import mongoose from 'mongoose';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,7 +62,37 @@ function handleError(res, statusCode) {
 
 // Gets a list of Orderss
 export function index(req, res) {
-  return Orders.find().exec()
+    return Orders.aggregate([
+        { "$unwind": "$emplyeesInOrder" },
+        { "$lookup": {
+            "from": "users",
+            "localField": "emplyeesInOrder",
+            "foreignField": "_id",
+            "as": "emplyeesInOrder"
+        }},
+        { "$group" : {
+            _id :"$_id",
+            name: { $first: "$name"},
+            emplyeesInOrder: { $push: "$emplyeesInOrder" },
+            productsInOrder: { $first: "$productsInOrder"}
+            }
+        },
+        { "$unwind": "$productsInOrder" },
+        { "$lookup": {
+            "from": "products",
+            "localField": "productsInOrder",
+            "foreignField": "_id",
+            "as": "productsInOrder"
+        }},
+        { "$group" : {
+            _id :"$_id",
+            name: { $first: "$name"},
+            emplyeesInOrder: { $first: "$emplyeesInOrder" },
+            productsInOrder: { $push: "$productsInOrder"}
+            }
+        },
+        { "$sort": {"name" : 1} }
+    ])
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

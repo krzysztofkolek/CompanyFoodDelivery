@@ -16,12 +16,12 @@
                         <td>{{row.name}}</td>
                         <td>
                             <ul>
-                                <li  ng-repeat="employee in row.emplyeesInOrder">{{employee}}</li>
+                                <li  ng-repeat="employee in row.emplyeesInOrder">{{employee[0].email}}</li>
                             </ul>
                         </td>                        
                         <td>
                             <ul>
-                                <li  ng-repeat="product in row.productsInOrder">{{product}}</li>
+                                <li  ng-repeat="product in row.productsInOrder">{{product[0].name}}</li>
                             </ul>
                         </td>
                     </tr>
