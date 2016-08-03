@@ -9,20 +9,16 @@
             <table st-table="employeesCtrl.rowCollection" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>first name</th>
-                        <th>last name</th>
-                        <th>birth date</th>
-                        <th>balance</th>
-                        <th>email</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in employeesCtrl.rowCollection">
-                        <td>{{row.firstName}}</td>
-                        <td>{{row.lastName}}</td>
-                        <td>{{row.birthDate}}</td>
-                        <td>{{row.balance}}</td>
+                    <tr ng-repeat="row in employeesCtrl.employees">
+                        <td>{{row.name}}</td>
                         <td>{{row.email}}</td>
+                        <td>{{row.role}}</td>
                     </tr>
                 </tbody>
             </table>

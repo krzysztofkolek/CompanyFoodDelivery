@@ -1,28 +1,41 @@
 'use strict';
 
-
 (function () {
 
     class EmployeesComponent {
         
-        constructor() {
-            this.rowCollection = [
-                { firstName: 'Laurent', lastName: 'Renard', birthDate: new Date('1987-05-21'), balance: 102, email: 'whatever@gmail.com' },
-                { firstName: 'Blandine', lastName: 'Faivre', birthDate: new Date('1987-04-25'), balance: -2323.22, email: 'oufblandou@gmail.com' },
-                { firstName: 'Francoise', lastName: 'Frere', birthDate: new Date('1955-08-27'), balance: 42343, email: 'raymondef@gmail.com' }
-            ];
+        constructor($http, $scope, socket) {
+            this.apiUrl = '/api/users';
+            
+            this.$http = $http;
+            this.socket = socket;
+            
+            this.employees = [];
+            $scope.$on('$destroy', function () {
+               socket.unsyncUpdates('employess'); 
+            });
         }
-
-        getEmployees() {
-            return [
-                "Alfreds Futterkiste",
-                "Berglunds snabbköp",
-                "Centro comercial Moctezuma",
-                "Ernst Handel",
-            ];
-        };
-
-         
+        
+        $onInit() {
+            this.$http.get(this.apiUrl)
+                .then(response => {
+                    this.employees = response.data;
+                    this.socket.syncUpdates('employeess', this.employees);    
+                }); 
+        }
+        
+        addUser() {
+            if(this.newUser) {
+                this.$http.post(this.apiUrl, {
+                    
+                });
+                this.newUser = ''; 
+            }
+        }
+        
+        deleteUser(user) {
+            this.$http.delete(this.apiUrl + user._id);
+        }
     }
 
 
