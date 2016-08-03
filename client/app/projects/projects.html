@@ -1,1 +1,28 @@
-<div>This is the projects view.</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Projects:</h1>
+
+            <table st-table="projectsCtrl.projects" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Employees in the project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in projectsCtrl.projects">
+                        <td>{{row.name}}</td>
+                        <td>
+                            <ul>
+                                <li ng-repeat="employeesInProject in row.employeesInProject">
+                                    {{employeesInProject[0].email}}
+                                 </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

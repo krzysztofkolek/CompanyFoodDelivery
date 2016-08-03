@@ -61,7 +61,24 @@ function handleError(res, statusCode) {
 
 // Gets a list of Projectss
 export function index(req, res) {
-  return Projects.find().exec()
+  return Projects.aggregate([
+        { "$unwind" : "$employeesInProject" },
+        {
+            "$lookup" : {
+               "from": "users",
+               "localField": "employeesInProject",
+               "foreignField": "_id",
+               "as": "employeesInProject"
+            }
+        },
+        { "$group" : {
+            _id :"$_id",
+            name: { $first: "$name"},
+            employeesInProject: { $push: "$employeesInProject" } 
+            }
+        },
+        { "$sort": {"name" : 1} }
+    ])
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
