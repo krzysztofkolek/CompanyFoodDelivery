@@ -44,34 +44,36 @@ Thing.find({}).remove()
             });
     });
 
-var users = [{
+var users = [
+    new User({
     provider: 'local',
     name: 'Test User',
     email: 'test@example.com',
     password: 'test'
-},
-    {
+    }),
+    new User({
         provider: 'local',
         name: 'Test User 1',
         email: 'test1@example.com',
         password: 'test'
-    },
-    {
+    }),
+    new User({
         provider: 'local',
         name: 'Test User2',
         email: 'test2@example.com',
         password: 'test'
-    }, {
+    }), 
+    new User({
         provider: 'local',
         role: 'admin',
         name: 'Admin',
         email: 'admin@example.com',
         password: 'admin'
-    }];
+    })];
 
-var retailers = [{
-    name: 'MCDon@lds'
-}];
+var retailers = [
+    new Retailers({name: 'MCDon@lds'})
+];
 
 User.find({}).remove()
     .then(() => {
@@ -80,6 +82,7 @@ User.find({}).remove()
                 console.log('finished populating users');
             });
     });
+    
 Retailers.find({}).remove()
     .then(() => {
         Retailers.create(retailers)
@@ -88,18 +91,18 @@ Retailers.find({}).remove()
             });
     });
  
- var products = [{
+ var products = [new Products({
         name: 'big mac',
-        retailer: Retailers.findOne({name: 'MCDon@lds'})._id
-    },
-    {
+        retailer: retailers[0]
+    }),
+    new Products({
         name: 'mc royal',
-        retailer: Retailers.findOne({name: 'MCDon@lds'})._id
-    },
-    {
+        retailer: retailers[0]
+    }),
+    new Products({
         name: 'mc double',
-        retailer: Retailers.findOne({name: 'MCDon@lds'})._id
-    }];  
+        retailer: retailers[0]
+    })];  
 
 Products.find({}).remove()
     .then(() => {
@@ -110,27 +113,27 @@ Products.find({}).remove()
     });    
 
 var emplyeesInOrderFirst = [];
-emplyeesInOrderFirst.push(User.findOne({name: 'Test User'})._id);
-emplyeesInOrderFirst.push(User.findOne({name: 'Test User 1'})._id);
+emplyeesInOrderFirst.push(users[0]._id);
+emplyeesInOrderFirst.push(users[1]._id);
 var productsFirstInOrder = [];
-productsFirstInOrder.push(Products.findOne({name: 'mc double'})._id); 
+productsFirstInOrder.push(products[0]._id); 
 
 var emplyeesInOrderSecond = [];
-emplyeesInOrderSecond.push(User.findOne({name: 'Test User'})._id);
-emplyeesInOrderSecond.push(User.findOne({name: 'Test User 1'})._id);
+emplyeesInOrderSecond.push(users[0]._id);
+emplyeesInOrderSecond.push(users[1]._id);
 var productsSecondInOrder = [];
-productsSecondInOrder.push(Products.findOne({name: 'mc double'})._id); 
-productsSecondInOrder.push(Products.findOne({name: 'mc royal'})._id); 
-var orders = [{
+productsSecondInOrder.push(products[1]._id); 
+productsSecondInOrder.push(products[2]._id); 
+var orders = [new Orders({
     name: 'First order',
     emplyeesInOrder: emplyeesInOrderFirst,
     productsInOrder: productsFirstInOrder
-},
-{
+}),
+new Orders({
     name: 'Second order',
     emplyeesInOrder: emplyeesInOrderSecond,
     productsInOrder: productsSecondInOrder
-}];  
+})];  
 Orders.find({}).remove()
     .then(() => {
         Orders.create(orders)
@@ -140,12 +143,12 @@ Orders.find({}).remove()
     });
 
 var usersForBigProject = [];
-usersForBigProject.push(User.findOne({name: 'Test User'})._id);
-usersForBigProject.push(User.findOne({name: 'Test User 1'})._id);
-var projects = [{
+usersForBigProject.push(users[0]._id);
+usersForBigProject.push(users[1]._id);
+var projects = [new Projects({
    name: 'big project',
    employeesInProject: usersForBigProject
-}];
+})];
 Projects.find({}).remove()
     .then(() => {
         Projects.create(projects)
