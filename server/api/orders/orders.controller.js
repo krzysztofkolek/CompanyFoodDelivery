@@ -63,6 +63,7 @@ function handleError(res, statusCode) {
 // Gets a list of Orderss
 export function index(req, res) {
     return Orders.aggregate([
+        // Join on users document to get all the users in a order 
         { "$unwind": "$emplyeesInOrder" },
         { "$lookup": {
             "from": "users",
@@ -77,6 +78,7 @@ export function index(req, res) {
             productsInOrder: { $first: "$productsInOrder"}
             }
         },
+        // Join on products document to get the products in concreat order
         { "$unwind": "$productsInOrder" },
         { "$lookup": {
             "from": "products",
